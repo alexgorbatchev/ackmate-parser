@@ -1,0 +1,35 @@
+>src/test/helpers.coffee
+1/process.env.NODE_ENV ?= 'test'
+2/
+3/0/7/require 'longjohn'
+4/0/7/require 'coffee-errors'
+5/
+6/8/7/chai  = require 'chai'
+7/8/7/sinon = require 'sinon'
+8/
+9/9/7/chai.use require 'sinon-chai'
+10/9/7/chai.use require 'chai-as-promised'
+11/
+12/global.sinon  = sinon
+13/global.expect = chai.expect
+14/
+15/2/7/# require './describe-protractor'
+16/0/7/require './describe-unit'
+17/
+>src/test/hooks.coffee
+1/10/7/service = require './service'
+2/
+3/after ->
+>src/test/service-selenium.coffee
+1/16/7/selenium      = require 'selenium-webdriver'
+2/16/7/chaiWebdriver = require 'chai-webdriver'
+3/16/7/sizzle        = require 'webdriver-sizzle'
+4/16/7/Promise       = require 'songbird'
+5/16/7/os            = require 'os'
+6/16/7/superagent    = require 'superagent'
+7/16/7/chai          = require 'chai'
+8/16/7/{spawn}       = require 'child_process'
+9/16/7/settings      = require 'settings'
+10/16/7/service       = require './service'
+11/
+12/instance  = null

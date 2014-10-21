@@ -1,0 +1,46 @@
+{
+  "name": "ackmate-parser",
+  "version": "1.0.0",
+  "description": "Streaming parser for the results produced by The Silver Searcher (aka `ag`) with the `--ackmate` flag.",
+  "keywords": [
+    "ackmate",
+    "parser",
+    "awk",
+    "ag"
+  ],
+  "homepage": "https://github.com/alexgorbatchev/ackmate-parser",
+  "bugs": "https://github.com/alexgorbatchev/ackmate-parser/issues",
+  "author": {
+    "name": "Alex Gorbatchev",
+    "url": "https://github.com/alexgorbatchev"
+  },
+  "main": "./lib/ackmate-parser.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexgorbatchev/ackmate-parser.git"
+  },
+  "scripts": {
+    "test": "gulp test",
+    "posttest": "istanbul check-coverage --statements 95 --branches 80"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "coffee-script": "^1.8.0",
+    "coveralls": "^2.11.2",
+    "gulp": "^3.8.6",
+    "gulp-coffee": "^2.1.1",
+    "gulp-istanbul": "^0.2.1",
+    "gulp-mocha": "^0.5.1",
+    "gulp-util": "^3.0.0",
+    "istanbul": "^0.3.2",
+    "mocha": "^1.18.2"
+  },
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.2.10"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "through2": "^0.6.3"
+  }
+}
