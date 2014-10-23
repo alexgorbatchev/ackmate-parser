@@ -17,26 +17,27 @@ Streaming parser for the results produced by [The Silver Searcher](https://githu
 
 ```javascript
 var ackmateParser = require('ackmate-parser');
-var inputStream = getInputStream();
-var stream = ackmateParser.fromStream(inputStream);
+var stream = ackmateParser();
 
-// whenever a new file in the stream is encountered
-stream.on('file', function(data) {
-  console.log(data.filename);
-});
+inputStream.pipe(stream);
 
-// if `ag` was called with `--before` or `--after`
-stream.on('surround', function(data) {
-  console.log(data.filename, data.lineNumber, data.value);
-});
+stream.on('data', function(line) {
+  // for each match in the stream
+  if(line.hasOwnProperty('length')) {
+    return console.log(line.filename, line.lineNumber, line.index, line.length, line.value);
+  }
 
-// for each match in the stream
-stream.on('match', function(_arg) {
-  console.log(data.filename, data.index, data.length, data.lineNumber, data.value);
+  // if `ag` was called with `--before` or `--after`
+  if(line.hasOwnProperty('value')) {
+    return console.log(line.filename, line.lineNumber, line.value);
+  }
+
+  // whenever a new file in the stream is encountered
+  console.log(line.filename);
 });
 
 stream.on('end', function() {
-  ...
+  console.log('done');
 });
 ```
 

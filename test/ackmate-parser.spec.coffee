@@ -24,17 +24,13 @@ getFixtureStream = ->
 describe 'ackmate-parser', ->
   describe '::fromStream', ->
     it 'streams data', (done) ->
-      stream = ackmateParser.fromStream getFixtureStream()
+      getFixtureStream().pipe stream = ackmateParser()
       lines = []
 
-      stream.on 'file', ({filename}) ->
+      stream.on 'data', ({filename, lineNumber, index, length, value}) ->
+        return lines.push "#{lineNumber}/#{index}/#{length}/#{value}" if length?
+        return lines.push "#{lineNumber}/#{value}" if value?
         lines.push ">#{filename}"
-
-      stream.on 'surround', ({filename, lineNumber, value}) ->
-        lines.push "#{lineNumber}/#{value}"
-
-      stream.on 'match', ({filename, lineNumber, index, length, value}) ->
-        lines.push "#{lineNumber}/#{index}/#{length}/#{value}"
 
       stream.on 'end', ->
         actual = lines.join '\n'
@@ -42,7 +38,7 @@ describe 'ackmate-parser', ->
         done()
 
     it 'emits error', (done) ->
-      stream = ackmateParser.fromStream inputStream = getFixtureStream()
+      inputStream = getFixtureStream().pipe stream = ackmateParser()
 
       setTimeout ->
         inputStream.emit 'error', new Error 'foo'
