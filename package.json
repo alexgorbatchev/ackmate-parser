@@ -1,6 +1,6 @@
 {
   "name": "ackmate-parser",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Streaming parser for the results produced by The Silver Searcher (aka `ag`) with the `--ackmate` flag.",
   "keywords": [
     "ackmate",
