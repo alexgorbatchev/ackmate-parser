@@ -1,3 +1,5 @@
+// TODO: This file was created by bulk-decaffeinate.
+// Sanity-check the conversion and remove this comment.
 // Load all required libraries.
 import gulp from 'gulp';
 import gutil from 'gulp-util';
