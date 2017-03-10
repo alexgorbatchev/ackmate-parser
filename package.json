@@ -24,19 +24,20 @@
     "posttest": "istanbul check-coverage --statements 95 --branches 80"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.22.0",
     "chai": "^3.5.0",
-    "coffee-script": "^1.8.0",
     "coveralls": "^2.11.2",
     "gulp": "^3.8.6",
-    "gulp-coffee": "^2.1.1",
+    "gulp-babel": "^6.1.2",
     "gulp-istanbul": "^1.1.1",
     "gulp-mocha": "^4.0.0",
+    "gulp-sourcemaps": "^2.4.1",
     "gulp-util": "^3.0.0",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0"
   },
   "engines": {
-    "node": ">=0.10.0",
+    "node": ">=5",
     "npm": ">=1.2.10"
   },
   "license": "MIT",
