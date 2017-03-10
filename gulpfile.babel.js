@@ -17,8 +17,12 @@ gulp.task('test', ['babel'], () =>
   gulp.src(['lib/**/*.js'])
     .pipe(istanbul()) // Covering files
     .on('finish', () =>
-      gulp.src(['test/**/*.spec.coffee'])
-        .pipe(mocha({reporter: 'spec', compilers: 'coffee:coffee-script', timeout: 5000}))
+      gulp.src(['test/**/*.spec.js'])
+        .pipe(mocha({
+          reporter: 'spec',
+          compilers: 'coffee:babel-core/register',
+          timeout: 5000
+        }))
         // Creating the reports after tests run
         .pipe(istanbul.writeReports())
   )
