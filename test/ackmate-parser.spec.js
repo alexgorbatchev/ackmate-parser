@@ -1,62 +1,71 @@
-// TODO: This file was created by bulk-decaffeinate.
-// Sanity-check the conversion and remove this comment.
 import fs from 'fs';
 import Stream from 'stream';
 import { expect } from 'chai';
-import ackmateParser from '../lib/ackmate-parser';
+import ackmateParser from '../src/ackmate-parser';
 
-let getFixtureStream = function() {
-  let fixture = fs.readFileSync(`${__dirname}/fixture.txt`, 'utf8');
-  fixture = fixture.split('');
+function getFixtureStream() {
+  const stream = new Stream();
+  const fixture = fs
+    .readFileSync(`${__dirname}/fixture.txt`, 'utf8')
+    .split('');
 
-  let stream = new Stream();
-
-  setTimeout(function() {
-    let push;
-    return push = function() {
+  setTimeout(function () {
+    function push() {
       let slice = fixture.splice(0, Math.round(Math.random() * 25) + 5);
 
       if (slice.length) {
         stream.emit('data', slice.join(''));
-        if (slice != null) { return setTimeout(push, 2); }
+
+        if (slice != null) {
+          return setTimeout(push, 2);
+        }
       } else {
         return stream.emit('end');
       }
-    }();
+    }
+
+    push();
   });
 
   return stream;
-};
+}
 
 describe('ackmate-parser', () =>
-  describe('::fromStream', function() {
-    it('streams data', function(done) {
-      let stream;
-      getFixtureStream().pipe(stream = ackmateParser());
-      let lines = [];
+  describe('::fromStream', function () {
+    it('streams data', function (done) {
+      const stream = ackmateParser();
+      const lines = [];
 
-      stream.on('data', function({filename, lineNumber, index, length, value}) {
-        if (length != null) { return lines.push(`${lineNumber}/${index}/${length}/${value}`); }
-        if (value != null) { return lines.push(`${lineNumber}/${value}`); }
-        return lines.push(`>${filename}`);
+      getFixtureStream().pipe(stream);
+
+      stream.on('data', function ({ filename, lineNumber, index, length, value }) {
+        if (length != null) {
+          return lines.push(`${lineNumber}/${index}/${length}/${value}`);
+        }
+
+        if (value != null) {
+          return lines.push(`${lineNumber}/${value}`);
+        }
+
+        lines.push(`>${filename}`);
       });
 
-      return stream.on('end', function() {
-        let actual = lines.join('\n');
+      stream.on('end', function () {
+        const actual = lines.join('\n');
         expect(actual).to.eql(fs.readFileSync(`${__dirname}/expected.txt`, 'utf8'));
-        return done();
+        done();
       });
     });
 
-    return it('emits error', function(done) {
-      let stream;
-      let inputStream = getFixtureStream().pipe(stream = ackmateParser());
+    return it('emits error', function (done) {
+      const stream = ackmateParser();
+      const inputStream = getFixtureStream().pipe(stream);
 
       setTimeout(() => inputStream.emit('error', new Error('foo')));
 
-      return stream.on('error', function(e) {
+      stream.on('error', function (e) {
         expect(e).to.be.instanceOf(Error);
-        return done();
+        done();
       });
     });
   })
