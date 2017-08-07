@@ -28,7 +28,7 @@
     "chai": "^4.0.2",
     "coveralls": "^2.11.2",
     "gulp": "^3.8.6",
-    "gulp-babel": "^6.1.2",
+    "gulp-babel": "^7.0.0",
     "gulp-istanbul": "^1.1.1",
     "gulp-mocha": "^4.0.0",
     "gulp-sourcemaps": "^2.4.1",
